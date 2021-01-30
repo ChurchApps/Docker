@@ -1,7 +1,7 @@
-FROM node:12-buster-slim
+FROM node:12-alpine
 
-RUN apt-get update && \
-    apt-get install -y git
+RUN apk update && \
+    apk add git
 
 WORKDIR /app
 

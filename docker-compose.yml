@@ -1,27 +1,25 @@
 version: "2.1"
 services:
-
-  
+ 
   mysql:
     container_name: "mysql"
     image: mysql:5.6
     environment:
-      MYSQL_DATABASE: attendance
-      MYSQL_PASSWORD: 123456
       MYSQL_ROOT_PASSWORD: 123456
-      MYSQL_USER: chruser
     ports:
       - "3306:3306"
     networks:
       - dev_net
     volumes:
+       - ./init.sql:/data/application/init.sql
        - mysql_data:/var/lib/mysql
+    command: --init-file /data/application/init.sql
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      test: ["CMD", 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '-p$$MYSQL_ROOT_PASSWORD' ]
+      interval: 30s
       timeout: 20s
       retries: 10
-    mem_limit: 50MB
-    mem_reservation: 20MB
+    mem_limit: 256MB
 
 
   attendance-api:
@@ -34,8 +32,6 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
-    mem_limit: 50MB
-    mem_reservation: 20MB
 
   giving-api:
     container_name: "giving-api"
@@ -47,8 +43,6 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
-    mem_limit: 50MB
-    mem_reservation: 20MB
 
   membership-api:
     container_name: "membership-api"
@@ -60,9 +54,6 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
-    mem_limit: 50MB
-    mem_reservation: 20MB
-
 
   access-api:
     container_name: "access-api"
@@ -74,8 +65,6 @@ services:
     depends_on:
       mysql:
         condition: service_healthy   
-    mem_limit: 50MB
-    mem_reservation: 20MB
 
 networks:
   dev_net:
