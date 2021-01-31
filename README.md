@@ -1,12 +1,15 @@
 # Docker
 Docker compose images for LCS projects
 
-After cloning this repo to a local directory, you can either use docker-compose to start all the dockers, or you can use docker commands in each directory to start each docker from its docker file.
+We currently have 4 Main projects : Accounts , APIs , CHUMS , StreamingLive
+Inside each project , there is multiple microservices that you can start using docker-compose in there respective folders.
 
-##docker-compose
+After cloning this repo to a local directory, you can either use docker-compose to start all the microservices of a project, or you can use docker commands in each directory to start each docker microservice from its docker file.
+
+<b>docker-compose</b >
 
 to build and start the dockers the first time :
- docker-compose up -d 
+<pre> docker-compose up -d </pre> 
 
 To stop the dockers :
  docker-compose stop
