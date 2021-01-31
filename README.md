@@ -1,7 +1,7 @@
 # Docker
 Docker compose images for LCS projects
 
-We currently have 4 Main projects : Accounts , APIs , CHUMS , StreamingLive.
+We currently have 4 Main projects : Accounts , CHUMS , StreamingLive.
 
 Inside each project , there is multiple microservices that you can start using docker-compose in there respective folders.
 
