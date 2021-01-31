@@ -1,7 +1,8 @@
 # Docker
 Docker compose images for LCS projects
 
-We currently have 4 Main projects : Accounts , APIs , CHUMS , StreamingLive
+We currently have 4 Main projects : Accounts , APIs , CHUMS , StreamingLive.
+
 Inside each project , there is multiple microservices that you can start using docker-compose in there respective folders.
 
 After cloning this repo to a local directory, you can either use docker-compose to start all the microservices of a project, or you can use docker commands in each directory to start each docker microservice from its docker file.
@@ -12,17 +13,17 @@ to build and start the dockers the first time :
 <pre> docker-compose up -d </pre> 
 
 To stop the dockers :
- docker-compose stop
+<pre> docker-compose stop</pre>
 
 To restart the dockers :
- docker-compose start
+<pre> docker-compose start</pre>
 
 To reset the dockers content exept the mysql :
- docker-compose down
+<pre> docker-compose down</pre>
 you can start the docker-compose up -d after that
 
 To reset the dockers content including the mysql :
- docker-compose down -v
+<pre> docker-compose down -v</pre>
 you can start the docker-compose up -d after that
 
 You can use VScode to attach to any docker, you need to install first the Microsoft extension : "Remote-Containers" After that you can attach VScode to the running container and start developing on it. 
