@@ -1,0 +1,78 @@
+version: "2.1"
+services:
+ 
+  st-mysql:
+    container_name: "st-mysql"
+    image: mysql:5.6
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    ports:
+      - "3306:3306"
+    networks:
+      - st_dev_net
+    volumes:
+       - ./init.sql:/data/application/init.sql
+       - st_mysql_data:/var/lib/mysql
+    command: --init-file /data/application/init.sql
+    healthcheck:
+      test: ["CMD", 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '-p$$MYSQL_ROOT_PASSWORD' ]
+      interval: 30s
+      timeout: 20s
+      retries: 10
+    mem_limit: 128MB
+
+  access-api:
+    container_name: "access-api"
+    build: ./AccessApi
+    ports:
+      - "8082:8082"
+    networks:
+      - st_dev_net
+    depends_on:
+      st-mysql:
+        condition: service_healthy   
+
+  streaminglive-web:
+    container_name: "streaminglive-web"
+    build: ./StreamingLiveWeb
+    ports:
+      - "3200:3200"
+    networks:
+      - st_dev_net   
+
+  streaminglive-chat:
+    container_name: "streaminglive-chat"
+    build: ./StreamingLiveChat
+    ports:
+      - "8201:8201"
+    networks:
+      - st_dev_net   
+
+
+  streaminglive-app:
+    container_name: "streaminglive-app"
+    build: ./StreamingLiveApp
+    ports:
+      - "3201:3201"
+    networks:
+      - st_dev_net   
+
+  streaminglive-api:
+    container_name: "streaminglive-api"
+    build: ./StreamingLiveApi
+    ports:
+      - "8200:8200"
+    networks:
+      - st_dev_net   
+    depends_on:
+      st-mysql:
+        condition: service_healthy     
+
+volumes: 
+  st_mysql_data : {}
+
+networks:
+  st_dev_net:
+    ipam:
+      config:
+        - subnet: 172.33.0.0/24
