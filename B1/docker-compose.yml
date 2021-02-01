@@ -1,0 +1,30 @@
+version: "2.1"
+services:
+
+  b1-api:
+    container_name: "b1-api"
+    build: ./B1Api
+    ports:
+      - "8300:8300"
+    networks:
+      - dev_net
+
+  b1-admin:
+    container_name: "b1-admin"
+    build: ./B1Admin
+    ports:
+      - "3301:3301"
+    networks:
+      - dev_net
+
+  b1-app:
+    container_name: "b1-app"
+    build: ./B1App
+    ports:
+      - "19002:19002"
+    networks:
+      - dev_net   
+
+
+networks:
+  dev_net:
