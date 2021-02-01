@@ -12,7 +12,7 @@ services:
       - dev_net
     volumes:
        - ./init.sql:/data/application/init.sql
-       - mysql_data:/var/lib/mysql
+       - mysql_data_chums:/var/lib/mysql
     command: --init-file /data/application/init.sql
     healthcheck:
       test: ["CMD", 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '-p$$MYSQL_ROOT_PASSWORD' ]
@@ -74,14 +74,6 @@ services:
     networks:
       - dev_net
 
-  chums-tests:
-    container_name: "chums-tests"
-    build: ./ChumsTests
-    ports:
-      - "3000:3000"
-    networks:
-      - dev_net      
-
   chums-web:
     container_name: "chums-web"
     build: ./ChumsWeb
@@ -91,6 +83,13 @@ services:
       - dev_net   
 
 
+  accounts-app:
+    container_name: "accounts-app"
+    build: ./AccountsApp
+    ports:
+      - "3100:3100"
+    networks:
+      - dev_net   
 
 
 
@@ -100,4 +99,4 @@ networks:
   dev_net:
 
 volumes: 
-  mysql_data : {}
+  mysql_data_chums : {}
