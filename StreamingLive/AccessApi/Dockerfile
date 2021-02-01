@@ -5,7 +5,7 @@ RUN apk update && \
 
 WORKDIR /app
 
-RUN git clone https://github.com/LiveChurchSolutions/StreamingLiveChat .
+RUN git clone https://github.com/LiveChurchSolutions/AccessApi .
 
 COPY sample.env .env
 
@@ -13,6 +13,6 @@ RUN git submodule init && git submodule update
 
 RUN npm install
 
-CMD npm run dev
+CMD npm run initdb && npm run dev
 
-EXPOSE 8201
+EXPOSE 8082
