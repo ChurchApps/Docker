@@ -1,34 +1,27 @@
 # Docker
 Docker compose images for LCS projects
 
-We currently have 3 Main projects : Accounts , CHUMS , StreamingLive.
+## Dev Environment Setup
+1. Browse to the /Containers/Dev folder and then to the project you wish to work on (Chums, StreamingLive, etc)
+2. Run `docker-compose up -d` to create the environment.  This will take about 5 minutes the first time.
+3. Refer to the list of ports below and open the main project in your browser (http://localhost:3100 - ChumsWeb)
 
-Accounts and CHUMS are inside same docker folder. 
-
-Inside each project , there is multiple microservices that you can start using docker-compose in there respective folders.
-
+### Additional Commands
 After cloning this repo to a local directory, you can either use docker-compose to start all the microservices of a project, or you can use docker commands in each directory to start each docker microservice from its docker file.
 
-<b>docker-compose</b >
-
-to build and start the dockers the first time :
-<pre> docker-compose up -d </pre> 
-
-To stop the dockers :
-<pre> docker-compose stop</pre>
-
-To restart the dockers :
-<pre> docker-compose start</pre>
-
-To reset the dockers content exept the mysql :
-<pre> docker-compose down</pre>
-you can start the docker-compose up -d after that
-
+* Build and start the dockers the first time: `docker-compose up -d`
+* Stop the docker container: `docker-compose stop`
+* Restart the docker container: `docker-compose start`
+* Reset everything except MySql: `docker-compose down` followed by `docker-compose up -d`
+* Reset everything including MySql: `docker-compose down -v` followed by `docker-compose up -d`
 To reset the dockers content including the mysql :
-<pre> docker-compose down -v</pre>
-you can start the docker-compose up -d after that
 
-You can use VScode to attach to any docker, you need to install first the Microsoft extension : "Remote-Containers" After that you can attach VScode to the running container and start developing on it. 
+### Connecting VSCode
+1. Install "Docker" and "Remote Containers" extension.
+2. Expand the Docker folder on the left of VSCode
+3. Expand the container you are using to see a list of apps.  Right click the desired app and select "Attach Visual Studio Code".  This will launch a new instance of VSCode tied to that app.
+4. In the files section of the new VSCode instance, select "Open Folder" and enter "/app/"
+5. To view console output, in the original VSCode instance, right click on the app and select "View Logs"
 
 ## Ports Used
 |Type|Category|Component|Port|
