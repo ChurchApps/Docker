@@ -19,7 +19,7 @@ services:
       interval: 30s
       timeout: 20s
       retries: 10
-    mem_limit: 128MB
+    mem_limit: 256MB
 
   access-api:
     container_name: "access-api"
@@ -34,9 +34,10 @@ services:
 
   accounts-app:
     container_name: "accounts-app"
+    tty: true
     build: ../../../Images/Accounts/AccountsApp
     ports:
-      - "3100:3100"
+      - "3300:3300"
     networks:
       - accounts_net   
 
@@ -44,6 +45,6 @@ networks:
   accounts_net:
     ipam:
       config:
-        - subnet: 172.32.0.0/24
+        - subnet: 172.33.0.0/24
 volumes: 
   mysql_data_accounts : {}
