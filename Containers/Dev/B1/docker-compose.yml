@@ -1,6 +1,6 @@
 version: "2.1"
 services:
- 
+
   mysql:
     container_name: "b1-mysql"
     image: mysql:5.6
@@ -22,7 +22,7 @@ services:
     mem_limit: 256MB
 
   attendance-api:
-    container_name: "attendance-api"
+    container_name: "b1-attendance-api"
     build: ../../../Images/CoreApis/AttendanceApi
     ports:
       - "8085:8085"
@@ -33,7 +33,7 @@ services:
         condition: service_healthy
 
   giving-api:
-    container_name: "giving-api"
+    container_name: "b1-giving-api"
     build: ../../../Images/CoreApis/GivingApi
     ports:
       - "8084:8084"
@@ -44,7 +44,7 @@ services:
         condition: service_healthy
 
   membership-api:
-    container_name: "membership-api"
+    container_name: "b1-membership-api"
     build: ../../../Images/CoreApis/MembershipApi
     ports:
       - "8083:8083"
@@ -55,7 +55,7 @@ services:
         condition: service_healthy
 
   access-api:
-    container_name: "access-api"
+    container_name: "b1-access-api"
     build: ../../../Images/CoreApis/AccessApi
     ports:
       - "8082:8082"
@@ -65,21 +65,22 @@ services:
       mysql:
         condition: service_healthy   
 
- b1-api:
+  b1-api:
     container_name: "b1-api"
     build: ../../../Images/B1/B1Api
     ports:
       - "8300:8300"
     networks:
-      - dev_net
+      - b1_net
 
   b1-admin:
     container_name: "b1-admin"
+    tty: true
     build: ../../../Images/B1/B1Admin
     ports:
       - "3301:3301"
     networks:
-      - dev_net
+      - b1_net
 
   b1-app:
     container_name: "b1-app"
@@ -93,7 +94,7 @@ services:
       - "19005:19005"
       - "19006:19006"
     networks:
-      - dev_net   
+      - b1_net   
 
 networks:
   b1_net:
