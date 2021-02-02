@@ -37,7 +37,7 @@ services:
     tty: true
     build: ../../../Images/Accounts/AccountsApp
     ports:
-      - "3300:3300"
+      - "3400:3400"
     networks:
       - accounts_net   
 
