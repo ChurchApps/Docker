@@ -22,7 +22,7 @@ services:
     mem_limit: 256MB
 
   access-api:
-    container_name: "access-api"
+    container_name: "accounts-access-api"
     build: ../../../Images/CoreApis/AccessApi
     ports:
       - "8082:8082"
