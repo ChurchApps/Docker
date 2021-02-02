@@ -66,31 +66,6 @@ services:
       mysql:
         condition: service_healthy   
 
-  chums-app:
-    container_name: "chums-app"
-    build: ./ChumsApp
-    ports:
-      - "3101:3101"
-    networks:
-      - dev_net
-
-  chums-web:
-    container_name: "chums-web"
-    build: ./ChumsWeb
-    ports:
-      - "3100:3100"
-    networks:
-      - dev_net   
-
-
-  accounts-app:
-    container_name: "accounts-app"
-    build: ./AccountsApp
-    ports:
-      - "3100:3100"
-    networks:
-      - dev_net   
-
 networks:
   dev_net:
     ipam:

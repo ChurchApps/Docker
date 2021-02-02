@@ -1,0 +1,49 @@
+version: "2.1"
+services:
+ 
+  accounts-mysql:
+    container_name: "accounts-mysql"
+    image: mysql:5.6
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    ports:
+      - "3306:3306"
+    networks:
+      - accounts_net
+    volumes:
+       - ./init.sql:/data/application/init.sql
+       - mysql_data_accounts:/var/lib/mysql
+    command: --init-file /data/application/init.sql
+    healthcheck:
+      test: ["CMD", 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '-p$$MYSQL_ROOT_PASSWORD' ]
+      interval: 30s
+      timeout: 20s
+      retries: 10
+    mem_limit: 128MB
+
+  access-api:
+    container_name: "access-api"
+    build: ../../../Images/CoreApis/AccessApi
+    ports:
+      - "8082:8082"
+    networks:
+      - accounts_net
+    depends_on:
+      accounts-mysql:
+        condition: service_healthy   
+
+  accounts-app:
+    container_name: "accounts-app"
+    build: ../../../Images/Accounts/AccountsApp
+    ports:
+      - "3100:3100"
+    networks:
+      - accounts_net   
+
+networks:
+  accounts_net:
+    ipam:
+      config:
+        - subnet: 172.32.0.0/24
+volumes: 
+  mysql_data_accounts : {}
