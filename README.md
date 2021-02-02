@@ -30,3 +30,21 @@ you can start the docker-compose up -d after that
 
 You can use VScode to attach to any docker, you need to install first the Microsoft extension : "Remote-Containers" After that you can attach VScode to the running container and start developing on it. 
 
+## Ports Used
+|Type|Category|Component|Port|
+|---|---|---|---|
+|Api|Core|AccessApi|8082|
+|||MembershipApi|8083|
+|||GivingApi|8084|
+|||AttendanceApi|8085|
+||B1|B1Api|8300|
+||StreamingLive|StreamingLiveApi|8200|
+|||StreamingLiveChat|8201|
+|Web|Accounts|AccountsApp|3400|
+||B1|B1Admin|3301|
+||Chums|ChumsWeb|3100|
+|||ChumsApp|3101|
+||StreamingLive|StreamingLiveWeb|3200|
+||StreamingLive|StreamingLiveApp|3201|
+|Mobile|B1|B1App|19000-19006|
+||Chums|ChumsCheckin|8080|
