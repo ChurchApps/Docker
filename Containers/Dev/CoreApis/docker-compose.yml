@@ -2,74 +2,73 @@ version: "2.1"
 services:
  
   mysql:
-    container_name: "mysql"
+    container_name: "core-mysql"
     image: mysql:5.6
     environment:
       MYSQL_ROOT_PASSWORD: 123456
     ports:
       - "3306:3306"
     networks:
-      - dev_net
+      - core_net
     volumes:
        - ./init.sql:/data/application/init.sql
-       - mysql_data_chums:/var/lib/mysql
+       - mysql_data_core:/var/lib/mysql
     command: --init-file /data/application/init.sql
     healthcheck:
       test: ["CMD", 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '-p$$MYSQL_ROOT_PASSWORD' ]
       interval: 30s
       timeout: 20s
       retries: 10
-    mem_limit: 128MB
-
+    mem_limit: 256MB
 
   attendance-api:
     container_name: "attendance-api"
-    build: ./AttendanceApi
+    build: ../../../Images/CoreApis/AttendanceApi
     ports:
       - "8085:8085"
     networks:
-      - dev_net
+      - core_net
     depends_on:
       mysql:
         condition: service_healthy
 
   giving-api:
     container_name: "giving-api"
-    build: ./GivingApi
+    build: ../../../Images/CoreApis/GivingApi
     ports:
       - "8084:8084"
     networks:
-      - dev_net
+      - core_net
     depends_on:
       mysql:
         condition: service_healthy
 
   membership-api:
     container_name: "membership-api"
-    build: ./MembershipApi
+    build: ../../../Images/CoreApis/MembershipApi
     ports:
       - "8083:8083"
     networks:
-      - dev_net
+      - core_net
     depends_on:
       mysql:
         condition: service_healthy
 
   access-api:
     container_name: "access-api"
-    build: ./AccessApi
+    build: ../../../Images/CoreApis/AccessApi
     ports:
       - "8082:8082"
     networks:
-      - dev_net
+      - core_net
     depends_on:
       mysql:
         condition: service_healthy   
-
+  
 networks:
-  dev_net:
+  core_net:
     ipam:
       config:
-        - subnet: 172.32.0.0/24
+        - subnet: 172.36.0.0/24
 volumes: 
-  mysql_data_chums : {}
+  mysql_data_core : {}
