@@ -5,7 +5,7 @@ RUN apk update && \
 
 WORKDIR /app
 
-RUN git clone https://github.com/LiveChurchSolutions/AccessApi .
+RUN git clone https://github.com/LiveChurchSolutions/ChumsWeb .
 
 COPY sample.env .env
 
@@ -13,6 +13,6 @@ RUN git submodule init && git submodule update
 
 RUN npm install
 
-CMD npm run initdb && npm run dev
+CMD npm start
 
-EXPOSE 8082
+EXPOSE 3100

@@ -1,0 +1,92 @@
+version: "2.1"
+services:
+ 
+  mysql:
+    container_name: "chums-mysql"
+    image: mysql:5.6
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    ports:
+      - "3306:3306"
+    networks:
+      - chums_net
+    volumes:
+       - ./init.sql:/data/application/init.sql
+       - mysql_data_chums:/var/lib/mysql
+    command: --init-file /data/application/init.sql
+    healthcheck:
+      test: ["CMD", 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '-p$$MYSQL_ROOT_PASSWORD' ]
+      interval: 30s
+      timeout: 20s
+      retries: 10
+    mem_limit: 256MB
+
+  attendance-api:
+    container_name: "chums-attendance-api"
+    build: ../../../Images/CoreApis/AttendanceApi
+    ports:
+      - "8085:8085"
+    networks:
+      - chums_net
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  giving-api:
+    container_name: "chums-giving-api"
+    build: ../../../Images/CoreApis/GivingApi
+    ports:
+      - "8084:8084"
+    networks:
+      - chums_net
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  membership-api:
+    container_name: "chums-membership-api"
+    build: ../../../Images/CoreApis/MembershipApi
+    ports:
+      - "8083:8083"
+    networks:
+      - chums_net
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  access-api:
+    container_name: "chums-access-api"
+    build: ../../../Images/CoreApis/AccessApi
+    ports:
+      - "8082:8082"
+    networks:
+      - chums_net
+    depends_on:
+      mysql:
+        condition: service_healthy   
+
+  chums-app:
+    container_name: "chums-app"
+    tty: true
+    build: ../../../Images/Chums/ChumsApp
+    ports:
+      - "3101:3101"
+    networks:
+      - chums_net
+
+  chums-web:
+    container_name: "chums-web"
+    tty: true
+    build: ../../../Images/Chums/ChumsWeb
+    ports:
+      - "3100:3100"
+    networks:
+      - chums_net   
+
+networks:
+  chums_net:
+    ipam:
+      config:
+        - subnet: 172.35.0.0/24
+volumes: 
+  mysql_data_chums : {}

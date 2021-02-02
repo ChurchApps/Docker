@@ -5,7 +5,7 @@ RUN apk update && \
 
 WORKDIR /app
 
-RUN git clone https://github.com/LiveChurchSolutions/StreamingLiveApp .
+RUN git clone https://github.com/LiveChurchSolutions/ChumsApp .
 
 COPY sample.env .env
 
@@ -13,6 +13,6 @@ RUN git submodule init && git submodule update
 
 RUN npm install
 
-CMD npm run dev
+CMD npm start
 
-EXPOSE 3201
+EXPOSE 3101
