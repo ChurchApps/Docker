@@ -21,6 +21,7 @@ After cloning this repo to a local directory, you can either use docker-compose 
 * Restart the docker container: `docker-compose start`
 * Reset everything except MySql: `docker-compose down` followed by `docker-compose up -d`
 * Reset everything including MySql: `docker-compose down -v` followed by `docker-compose up -d`
+* Completely reinstall everything: `docker-compose down --rmi local` followed by `docker-compose up -d`
 
 ## Ports Used
 |Type|Category|Component|Port|
