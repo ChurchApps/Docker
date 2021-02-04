@@ -83,12 +83,21 @@ services:
     networks:
       - fs_net
 
+  churchapps-web:
+    container_name: "fs-churchapps-web"
+    tty: true
+    build: ../../../Images/ChurchApps/ChurchAppsWeb
+    ports:
+      - "3400:3400"
+    networks:
+      - fs_net
+
   accounts-app:
     container_name: "fs-accounts-app"
     tty: true
-    build: ../../../Images/Accounts/AccountsApp
+    build: ../../../Images/ChurchApps/AccountsApp
     ports:
-      - "3400:3400"
+      - "3401:3401"
     networks:
       - fs_net
 

@@ -33,7 +33,8 @@ After cloning this repo to a local directory, you can either use docker-compose 
 ||B1|B1Api|8300|
 ||StreamingLive|StreamingLiveApi|8200|
 |||StreamingLiveChat|8201|
-|Web|Accounts|AccountsApp|3400|
+|Web|ChurchApps|ChurchAppsWeb|3400|
+|||AccountsApp|3401|
 ||B1|B1Admin|3301|
 ||Chums|ChumsWeb|3100|
 |||ChumsApp|3101|

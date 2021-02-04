@@ -1,18 +1,18 @@
 version: "2.1"
 services:
  
-  accounts-mysql:
-    container_name: "accounts-mysql"
+  mysql:
+    container_name: "churchapps-mysql"
     image: mysql:5.6
     environment:
       MYSQL_ROOT_PASSWORD: 123456
     ports:
       - "3306:3306"
     networks:
-      - accounts_net
+      - churchapps_net
     volumes:
        - ./init.sql:/data/application/init.sql
-       - mysql_data_accounts:/var/lib/mysql
+       - mysql_data_churchapps:/var/lib/mysql
     command: --init-file /data/application/init.sql
     healthcheck:
       test: ["CMD", 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '-p$$MYSQL_ROOT_PASSWORD' ]
@@ -22,29 +22,38 @@ services:
     mem_limit: 256MB
 
   access-api:
-    container_name: "accounts-access-api"
+    container_name: "churchapps-access-api"
     build: ../../../Images/CoreApis/AccessApi
     ports:
       - "8082:8082"
     networks:
-      - accounts_net
+      - churchapps_net
     depends_on:
-      accounts-mysql:
+      mysql:
         condition: service_healthy   
+
+  churchapps-web:
+    container_name: "churchapps-web"
+    tty: true
+    build: ../../../Images/ChurchApps/ChurchAppsWeb
+    ports:
+      - "3400:3400"
+    networks:
+      - churchapps_net  
 
   accounts-app:
     container_name: "accounts-app"
     tty: true
-    build: ../../../Images/Accounts/AccountsApp
+    build: ../../../Images/ChurchApps/AccountsApp
     ports:
-      - "3400:3400"
+      - "3401:3401"
     networks:
-      - accounts_net   
+      - churchapps_net   
 
 networks:
-  accounts_net:
+  churchapps_net:
     ipam:
       config:
         - subnet: 172.33.0.0/24
 volumes: 
-  mysql_data_accounts : {}
+  mysql_data_churchapps : {}

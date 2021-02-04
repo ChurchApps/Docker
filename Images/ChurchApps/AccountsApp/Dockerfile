@@ -15,4 +15,4 @@ RUN npm install
 
 CMD npm start
 
-EXPOSE 3400
+EXPOSE 3401
