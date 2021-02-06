@@ -13,8 +13,6 @@ RUN git submodule init && git submodule update
 
 RUN npm install
 
-RUN npm run initdb
-
-CMD npm run dev
+CMD npm run initdb && npm run dev
 
 EXPOSE 8300
