@@ -7,6 +7,8 @@ WORKDIR /app
 
 RUN git clone https://github.com/LiveChurchSolutions/B1App .
 
+COPY sample.env Env.ts
+
 RUN git submodule init && git submodule update
 
 RUN npm install --global expo-cli
