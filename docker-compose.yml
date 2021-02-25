@@ -153,7 +153,7 @@ services:
     networks:
       - fs_net
 
-  chums-web:
+  chums-checkin:
     container_name: "fs-chums-checkin"
     tty: true
     image: livecs/chumscheckin
@@ -220,18 +220,25 @@ services:
 
 ############################################################Start OF StreamingLive#############################################################
 
-#   streaminglive-web:
-#     container_name: "fs-streaminglive-web"
-#     tty: true
-#     build: ../../../Images/StreamingLive/StreamingLiveWeb
-#     ports:
-#       - "3200:3200"
-#     networks:
-#       - fs_net
+  streaminglive-web:
+    container_name: "fs-streaminglive-web"
+    tty: true
+    image: livecs/streamingliveweb
+    environment: 
+      - PORT=3200
+      - REACT_APP_ACCESS_API=${REACT_APP_ACCESS_API}
+      - REACT_APP_STREAMINGLIVE_API=${REACT_APP_STREAMINGLIVE_API}
+      - REACT_APP_SUB_URL=${REACT_APP_SUB_URL}
+      - REACT_APP_CHURCH_APPS_URL=${REACT_APP_CHURCH_APPS_URL}
+      - REACT_APP_SUPPORT_EMAIL=${REACT_APP_SUPPORT_EMAIL}
+    ports:
+      - "3200:3200"
+    networks:
+      - fs_net
 
 #   streaminglive-chat:
 #     container_name: "fs-streaminglive-chat"
-#     build: ../../../Images/StreamingLive/StreamingLiveChat
+#     image: livecs/StreamingLiveChat
 #     ports:
 #       - "8201:8201"
 #     networks:
@@ -240,7 +247,7 @@ services:
 #   streaminglive-app:
 #     container_name: "fs-streaminglive-app"
 #     tty: true
-#     build: ../../../Images/StreamingLive/StreamingLiveApp
+#     image: livecs/streamingLiveApp
 #     ports:
 #       - "3201:3201"
 #     networks:
@@ -248,7 +255,7 @@ services:
 
 #   streaminglive-api:
 #     container_name: "fs-streaminglive-api"
-#     build: ../../../Images/StreamingLive/StreamingLiveApi
+#    image: livecs/StreamingLiveApi
 #     ports:
 #       - "8200:8200"
 #     networks:
