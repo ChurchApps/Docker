@@ -6,6 +6,8 @@ Docker compose images for LCS projects
 
 2- Copy sample.env to .env and edit the variables as you wish
 
+This is a Full stack file , in case you want to remove a feature, for example B1 or StreamingLive you can comment the feature block from the composer file , or uncomment it to add it .
+
 ### Additional Commands
 After cloning this repo to a local directory, you can either use docker-compose to start all the microservices of a project, or you can use docker commands in each directory to start each docker microservice from its docker file.
 
