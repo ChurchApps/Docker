@@ -3,6 +3,7 @@ Docker compose images for LCS projects
 
 ## Prod Environment Setup
 1- Clone the project
+
 2- Copy sample.env to .env and edit the variables as you wish
 
 ### Additional Commands
