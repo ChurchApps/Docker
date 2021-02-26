@@ -33,7 +33,8 @@ services:
     container_name: "fs-attendance-api"
     image: livecs/attendanceapi
     environment: 
-      - API_ENV=${ENVIREMENT}
+      - ENVIRONMENT=${ENVIRONMENT}
+      - API_ENV=${ENVIRONMENT}
       - APP_NAME=AttendanceApi
       - SERVER_PORT=8085
       - DB_HOST=${MYSQL_HOSTNAME}
@@ -54,7 +55,8 @@ services:
     container_name: "fs-giving-api"
     image: livecs/givingapi
     environment: 
-      - API_ENV=${ENVIREMENT}
+      - ENVIRONMENT=${ENVIRONMENT}
+      - API_ENV=${ENVIRONMENT}
       - APP_NAME=GivingApi
       - SERVER_PORT=8084
       - DB_HOST=${MYSQL_HOSTNAME}
@@ -75,7 +77,8 @@ services:
     container_name: "fs-membership-api"
     image: livecs/membershipapi
     environment: 
-      - API_ENV=${ENVIREMENT}
+      - ENVIRONMENT=${ENVIRONMENT}
+      - API_ENV=${ENVIRONMENT}
       - APP_NAME=MembershipApi
       - SERVER_PORT=8083
       - DB_HOST=${MYSQL_HOSTNAME}
@@ -96,7 +99,8 @@ services:
     container_name: "fs-access-api"
     image: livecs/accessapi
     environment: 
-      - API_ENV=${ENVIREMENT}
+      - ENVIRONMENT=${ENVIRONMENT}
+      - API_ENV=${ENVIRONMENT}
       - APP_NAME=AccessApi
       - SERVER_PORT=8082
       - DB_HOST=${MYSQL_HOSTNAME}
@@ -124,13 +128,14 @@ services:
     tty: true
     image: livecs/chumsapp
     environment: 
+      - ENVIRONMENT=${ENVIRONMENT}
       - PORT=3101
-      - REACT_APP_ACCESS_API=${REACT_APP_ACCESS_API}
-      - REACT_APP_ATTENDANCE_API=${REACT_APP_ATTENDANCE_API}
-      - REACT_APP_GIVING_API=${REACT_APP_GIVING_API}
-      - REACT_APP_MEMBERSHIP_API=${REACT_APP_MEMBERSHIP_API}
+      - REACT_APP_ACCESS_API=${PROTOCOL}://${DOMAIN}:8082
+      - REACT_APP_ATTENDANCE_API=${PROTOCOL}://${DOMAIN}:8085
+      - REACT_APP_GIVING_API=${PROTOCOL}://${DOMAIN}:8084
+      - REACT_APP_MEMBERSHIP_API=${PROTOCOL}://${DOMAIN}:8083
       - REACT_APP_CONTENT_ROOT=${REACT_APP_CONTENT_ROOT}
-      - REACT_APP_GOOGLE_ANALYTICS=${REACT_APP_GOOGLE_ANALYTICS}
+      - REACT_APP_GOOGLE_ANALYTICS=${GOOGLE_ANALYTICS}
     ports:
       - "3101:3101"
     networks:
@@ -141,13 +146,14 @@ services:
     tty: true
     image: livecs/chumsweb
     environment: 
+      - ENVIRONMENT=${ENVIRONMENT}
       - PORT=3100
-      - REACT_APP_ACCESS_API=${REACT_APP_ACCESS_API}
-      - REACT_APP_ATTENDANCE_API=${REACT_APP_ATTENDANCE_API}
-      - REACT_APP_GIVING_API=${REACT_APP_GIVING_API}
-      - REACT_APP_MEMBERSHIP_API=${REACT_APP_MEMBERSHIP_API}
-      - REACT_APP_APP_URL=${REACT_APP_APP_URL}
-      - REACT_APP_GOOGLE_ANALYTICS=${REACT_APP_GOOGLE_ANALYTICS}
+      - REACT_APP_ACCESS_API=${PROTOCOL}${DOMAIN}:8082
+      - REACT_APP_ATTENDANCE_API=${PROTOCOL}://${DOMAIN}:8085
+      - REACT_APP_GIVING_API=${PROTOCOL}://${DOMAIN}:8084
+      - REACT_APP_MEMBERSHIP_API=${PROTOCOL}://${DOMAIN}:8083
+      - REACT_APP_APP_URL=${PROTOCOL}://${DOMAIN}:3101
+      - REACT_APP_GOOGLE_ANALYTICS=${GOOGLE_ANALYTICS}
     ports:
       - "3100:3100"
     networks:
@@ -158,13 +164,14 @@ services:
     tty: true
     image: livecs/chumscheckin
     environment: 
+      - ENVIRONMENT=${ENVIRONMENT}
       - PORT=8080
-      - REACT_APP_ACCESS_API=${REACT_APP_ACCESS_API}
-      - REACT_APP_ATTENDANCE_API=${REACT_APP_ATTENDANCE_API}
-      - REACT_APP_GIVING_API=${REACT_APP_GIVING_API}
-      - REACT_APP_MEMBERSHIP_API=${REACT_APP_MEMBERSHIP_API}
-      - REACT_APP_APP_URL=${REACT_APP_APP_URL}
-      - REACT_APP_GOOGLE_ANALYTICS=${REACT_APP_GOOGLE_ANALYTICS}
+      - REACT_APP_ACCESS_API=${PROTOCOL}${DOMAIN}:8082
+      - REACT_APP_ATTENDANCE_API=${PROTOCOL}://${DOMAIN}:8085
+      - REACT_APP_GIVING_API=${PROTOCOL}://${DOMAIN}:8084
+      - REACT_APP_MEMBERSHIP_API=${PROTOCOL}://${DOMAIN}:8083
+      - REACT_APP_APP_URL=${PROTOCOL}://${DOMAIN}:3101
+      - REACT_APP_GOOGLE_ANALYTICS=${GOOGLE_ANALYTICS}
     ports:
       - "8080:8080"
     networks:
@@ -183,15 +190,16 @@ services:
     tty: true
     image: livecs/accountsapp
     environment: 
+      - ENVIRONMENT=${ENVIRONMENT}
       - PORT=3401
-      - REACT_APP_ACCESS_API=${REACT_APP_ACCESS_API}
-      - REACT_APP_GIVING_API=${REACT_APP_GIVING_API}
-      - REACT_APP_STREAMINGLIVE_API=${REACT_APP_STREAMINGLIVE_API}
-      - REACT_APP_STREAMINGLIVE_URL=${REACT_APP_STREAMINGLIVE_URL}
-      - REACT_APP_CHUMS_URL=${REACT_APP_CHUMS_URL}
-      - REACT_APP_B1_API=${REACT_APP_B1_API}
+      - REACT_APP_ACCESS_API=${PROTOCOL}${DOMAIN}:8082
+      - REACT_APP_GIVING_API=${PROTOCOL}://${DOMAIN}:8084
+      - REACT_APP_STREAMINGLIVE_API=${PROTOCOL}://${DOMAIN}:8200
+      - REACT_APP_STREAMINGLIVE_URL=${PROTOCOL}://${DOMAIN}:3200
+      - REACT_APP_CHUMS_URL=${PROTOCOL}://${DOMAIN}:3100
+      - REACT_APP_B1_API=${PROTOCOL}://${DOMAIN}:8300
       - REACT_APP_B1_URL=${REACT_APP_B1_URL}
-      - REACT_APP_SUPPORT_EMAIL=${REACT_APP_SUPPORT_EMAIL}
+      - REACT_APP_SUPPORT_EMAIL=${SUPPORT_EMAIL}
     ports:
       - "3401:3401"
     networks:
@@ -202,10 +210,11 @@ services:
     tty: true
     image: livecs/churchappsweb
     environment: 
+      - ENVIRONMENT=${ENVIRONMENT}
       - PORT=3400
-      - REACT_APP_ACCESS_API=${REACT_APP_ACCESS_API}
-      - REACT_APP_APP_URL=${REACT_APP_APP_URL}
-      - REACT_APP_GOOGLE_ANALYTICS=${REACT_APP_GOOGLE_ANALYTICS}
+      - REACT_APP_ACCESS_API=${PROTOCOL}${DOMAIN}:8082
+      - REACT_APP_APP_URL=${PROTOCOL}://${DOMAIN}:3101
+      - REACT_APP_GOOGLE_ANALYTICS=${GOOGLE_ANALYTICS}
     ports:
       - "3400:3400"
     networks:
@@ -225,44 +234,70 @@ services:
     tty: true
     image: livecs/streamingliveweb
     environment: 
+      - ENVIRONMENT=${ENVIRONMENT}
       - PORT=3200
-      - REACT_APP_ACCESS_API=${REACT_APP_ACCESS_API}
-      - REACT_APP_STREAMINGLIVE_API=${REACT_APP_STREAMINGLIVE_API}
+      - REACT_APP_ACCESS_API=${PROTOCOL}${DOMAIN}:8082
+      - REACT_APP_STREAMINGLIVE_API=${PROTOCOL}://${DOMAIN}:8200
       - REACT_APP_SUB_URL=${REACT_APP_SUB_URL}
-      - REACT_APP_CHURCH_APPS_URL=${REACT_APP_CHURCH_APPS_URL}
-      - REACT_APP_SUPPORT_EMAIL=${REACT_APP_SUPPORT_EMAIL}
+      - REACT_APP_CHURCH_APPS_URL=${PROTOCOL}://${DOMAIN}:3400
+      - REACT_APP_SUPPORT_EMAIL=${SUPPORT_EMAIL}
     ports:
       - "3200:3200"
     networks:
       - fs_net
 
-#   streaminglive-chat:
-#     container_name: "fs-streaminglive-chat"
-#     image: livecs/StreamingLiveChat
-#     ports:
-#       - "8201:8201"
-#     networks:
-#       - fs_net
+  streaminglive-chat:
+    container_name: "fs-streaminglive-chat"
+    image: livecs/streaminglivechat
+    environment: 
+      - ENVIRONMENT=${ENVIRONMENT}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - DB_PROVIDER=local
+      - DELIVERY_PROVIDER=local
+    ports:
+      - "8201:8201"
+    networks:
+      - fs_net
 
-#   streaminglive-app:
-#     container_name: "fs-streaminglive-app"
-#     tty: true
-#     image: livecs/streamingLiveApp
-#     ports:
-#       - "3201:3201"
-#     networks:
-#       - fs_net
+  streaminglive-app:
+    container_name: "fs-streaminglive-app"
+    tty: true
+    image: livecs/streamingliveapp
+    environment: 
+      - ENVIRONMENT=${ENVIRONMENT}
+      - PORT=3201
+      - REACT_APP_ACCESS_API=${PROTOCOL}${DOMAIN}:8082
+      - REACT_APP_STREAMINGLIVE_API=${PROTOCOL}://${DOMAIN}:8200
+      - REACT_APP_CHAT_API=wss://${DOMAIN}:8201
+      - REACT_APP_CONTENT_ROOT=
+      - REACT_APP_SUB_URL=${REACT_APP_SUB_URL}
+      - REACT_APP_REQUIRE_PUBLISH=${REACT_APP_REQUIRE_PUBLISH}
+    ports:
+      - "3201:3201"
+    networks:
+      - fs_net
 
-#   streaminglive-api:
-#     container_name: "fs-streaminglive-api"
-#    image: livecs/StreamingLiveApi
-#     ports:
-#       - "8200:8200"
-#     networks:
-#       - fs_net
-#     depends_on:
-#       mysql:
-#         condition: service_healthy 
+  streaminglive-api:
+    container_name: "fs-streaminglive-api"
+    image: livecs/streamingliveapi
+    environment: 
+      - ENVIRONMENT=${ENVIRONMENT}
+      - NODE_ENV=${ENVIRONMENT}
+      - APP_NAME=StreamingLive
+      - SERVER_PORT=8200
+      - DB_HOST=${MYSQL_HOSTNAME}
+      - DB_DATABASE=streamingLive
+      - DB_USER=${MYSQL_USERNAME}
+      - DB_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - STORAGE_LOCATION=DB
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+    ports:
+      - "8200:8200"
+    networks:
+      - fs_net
+    depends_on:
+      mysql:
+        condition: service_healthy 
 
 ############################################################END OF StreamingLive#############################################################
 
@@ -271,36 +306,59 @@ services:
 
 
 ###############################################################Start OF B1###################################################################
-#   b1-api:
-#     container_name: "fs-b1-api"
-#     build: ../../../Images/B1/B1Api
-#     ports:
-#       - "8300:8300"
-#     networks:
-#       - fs_net
+  b1-api:
+    container_name: "fs-b1-api"
+    image: livecs/b1api
+    environment: 
+      - ENVIRONMENT=$ENVIRONMENT          
+      - API_ENV=$ENVIRONMENT
+      - APP_NAME=B1Api
+      - SERVER_PORT=8300
+      - DB_HOST=${MYSQL_HOSTNAME}
+      - DB_DATABASE=b1
+      - DB_USER=${MYSQL_USERNAME}
+      - DB_PASSWORD=${MYSQL_ROOT_PASSWORD}   
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}  
+    ports:
+      - "8300:8300"
+    networks:
+      - fs_net
 
-#   b1-admin:
-#     container_name: "fs-b1-admin"
-#     tty: true
-#     build: ../../../Images/B1/B1Admin
-#     ports:
-#       - "3301:3301"
-#     networks:
-#       - fs_net
+  b1-admin:
+    container_name: "fs-b1-admin"
+    tty: true
+    image: livecs/b1admin
+    environment: 
+      - PORT=$ENVIRONMENT
+      - REACT_APP_NAME=B1Admin
+      - REACT_APP_ACCESS_API=${PROTOCOL}${DOMAIN}:8082
+      - REACT_APP_B1_API=${PROTOCOL}://${DOMAIN}:8300
+      - REACT_APP_WEB_URL=${PROTOCOL}://${DOMAIN}:3300
+    ports:
+      - "3301:3301"
+    networks:
+      - fs_net
 
-#   b1-app:
-#     container_name: "fs-b1-app"
-#     build: ../../../Images/B1/B1App
-#     ports:
-#       - "19000:19000"
-#       - "19001:19001"
-#       - "19002:19002"
-#       - "19003:19003"
-#       - "19004:19004"
-#       - "19005:19005"
-#       - "19006:19006"
-#     networks:
-#       - fs_net
+  b1-app:
+    container_name: "fs-b1-app"
+    image: livecs/b1app
+    environment: 
+      - accessApi=${PROTOCOL}${DOMAIN}:8082
+      - attendanceApi=${PROTOCOL}://${DOMAIN}:8085
+      - givingApi=${PROTOCOL}://${DOMAIN}:8084
+      - embershipApi=${PROTOCOL}://${DOMAIN}:8083
+      - b1Api=${PROTOCOL}://${DOMAIN}:8300
+      - imageBase=http://localhost:3400     
+    ports:
+      - "19000:19000"
+      - "19001:19001"
+      - "19002:19002"
+      - "19003:19003"
+      - "19004:19004"
+      - "19005:19005"
+      - "19006:19006"
+    networks:
+      - fs_net
 ###############################################################END OF B1###################################################################
 
 
