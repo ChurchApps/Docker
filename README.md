@@ -8,6 +8,19 @@ Docker compose images for LCS projects
 
 This is a Full stack file , in case you want to remove a feature, for example B1 or StreamingLive you can comment the feature block from the composer file , or uncomment it to add it .
 
+### .env file breakdown
+
+* `ENVIRONMENT=dev` set the envirement as dev or prod
+* `MYSQL_ROOT_PASSWORD=123456` set the Mysql password
+* `MYSQL_USERNAME=root` the username for the Mysql
+* `MYSQL_HOSTNAME=fs-mysql` the hostname for your Mysql server , leave default value if you dont want to use an external Mysql
+* `JWT_SECRET_KEY=jsonwebtockenkey` the JWT token key
+* `JWT_EXPIRATION=2 days`
+* `PROTOCOL=http` http or https
+* `DOMAIN=localhost`  your domain name
+* `GOOGLE_ANALYTICS=UA-123456789-1` your google analytics key
+* `SUPPORT_EMAIL=support@example.com` the email for support
+
 ### Additional Commands
 After cloning this repo to a local directory, you can either use docker-compose to start all the microservices of a project, or you can use docker commands in each directory to start each docker microservice from its docker file.
 
