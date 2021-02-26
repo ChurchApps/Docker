@@ -329,6 +329,7 @@ services:
     tty: true
     image: livecs/b1admin
     environment: 
+      - ENVIRONMENT=$ENVIRONMENT   
       - PORT=$ENVIRONMENT
       - REACT_APP_NAME=B1Admin
       - REACT_APP_ACCESS_API=${PROTOCOL}${DOMAIN}:8082
@@ -343,6 +344,7 @@ services:
     container_name: "fs-b1-app"
     image: livecs/b1app
     environment: 
+      - ENVIRONMENT=$ENVIRONMENT   
       - accessApi=${PROTOCOL}${DOMAIN}:8082
       - attendanceApi=${PROTOCOL}://${DOMAIN}:8085
       - givingApi=${PROTOCOL}://${DOMAIN}:8084
