@@ -50,6 +50,8 @@ After cloning this repo to a local directory, you can either use docker-compose 
 |||MembershipApi|8083|
 |||GivingApi|8084|
 |||AttendanceApi|8085|
+|||MessagingApi (REST)|8086|
+|||MessagingApi (Socket)|8087|
 ||B1|B1Api|8300|
 ||StreamingLive|StreamingLiveApi|8200|
 |||StreamingLiveChat|8201|

@@ -53,6 +53,18 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+  
+  messaging-api:
+    container_name: "fs-messaging-api"
+    build: ../../../Images/CoreApis/MessagingApi
+    ports:
+      - "8086:8086"
+      - "8087:8087"
+    networks:
+      - fs_net
+    depends_on:
+      mysql:
+        condition: service_healthy
 
   access-api:
     container_name: "fs-access-api"
@@ -107,14 +119,6 @@ services:
     build: ../../../Images/StreamingLive/StreamingLiveWeb
     ports:
       - "3200:3200"
-    networks:
-      - fs_net
-
-  streaminglive-chat:
-    container_name: "fs-streaminglive-chat"
-    build: ../../../Images/StreamingLive/StreamingLiveChat
-    ports:
-      - "8201:8201"
     networks:
       - fs_net
 
