@@ -28,6 +28,8 @@ services:
       - "8085:8085"
     networks:
       - fs_net
+    volumes:
+      - content:/app/content
     depends_on:
       mysql:
         condition: service_healthy
@@ -39,6 +41,8 @@ services:
       - "8084:8084"
     networks:
       - fs_net
+    volumes:
+       - content:/app/content
     depends_on:
       mysql:
         condition: service_healthy
@@ -50,6 +54,8 @@ services:
       - "8083:8083"
     networks:
       - fs_net
+    volumes:
+       - content:/app/content
     depends_on:
       mysql:
         condition: service_healthy
@@ -62,6 +68,8 @@ services:
       - "8087:8087"
     networks:
       - fs_net
+    volumes:
+       - content:/app/content
     depends_on:
       mysql:
         condition: service_healthy
@@ -73,6 +81,8 @@ services:
       - "8082:8082"
     networks:
       - fs_net
+    volumes:
+       - content:/app/content
     depends_on:
       mysql:
         condition: service_healthy   
@@ -138,10 +148,12 @@ services:
       - "8200:8200"
     networks:
       - fs_net
+    volumes:
+       - content:/app/content
     depends_on:
       mysql:
         condition: service_healthy 
-
+ 
   b1-api:
     container_name: "fs-b1-api"
     build: ../../../Images/B1/B1Api
@@ -159,19 +171,16 @@ services:
     networks:
       - fs_net
 
-  b1-app:
-    container_name: "fs-b1-app"
-    build: ../../../Images/B1/B1App
+  content:
+    container_name: "fs-content"
+    tty: true
+    build: ../../../Images/NGINX/Content
     ports:
-      - "19000:19000"
-      - "19001:19001"
-      - "19002:19002"
-      - "19003:19003"
-      - "19004:19004"
-      - "19005:19005"
-      - "19006:19006"
+      - "3402:3402"
     networks:
       - fs_net
+    volumes:
+      - content:/content
 
 networks:
   fs_net:
@@ -180,3 +189,4 @@ networks:
         - subnet: 172.40.0.0/24
 volumes: 
   mysql_data_fs : {}
+  content: {}
