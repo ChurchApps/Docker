@@ -88,7 +88,7 @@ services:
     container_name: "proxy"
     build: "../../../Images/NGINX/ProxyServer"
     ports: 
-      - "80:80"
+      - "8100:8100"
     networks: 
       - fs_net
     depends_on: 
