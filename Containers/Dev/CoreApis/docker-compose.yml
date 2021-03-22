@@ -1,0 +1,107 @@
+version: "2"
+services:
+ 
+  mysql:
+    container_name: "fs-mysql"
+    image: mysql:5.6
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    ports:
+      - "3306:3306"
+    networks:
+      - fs_net
+    volumes:
+       - ./init.sql:/data/application/init.sql
+       - mysql_data_fs:/var/lib/mysql
+    command: --init-file /data/application/init.sql
+    healthcheck:
+      test: ["CMD", 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '-p$$MYSQL_ROOT_PASSWORD' ]
+      interval: 30s
+      timeout: 20s
+      retries: 10
+    mem_limit: 256MB
+
+  attendance-api:
+    container_name: "fs-attendance-api"
+    build: ../../../Images/CoreApis/AttendanceApi
+    ports:
+      - "8085:8085"
+    networks:
+      - fs_net
+    volumes:
+      - content:/app/content
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  giving-api:
+    container_name: "fs-giving-api"
+    build: ../../../Images/CoreApis/GivingApi
+    ports:
+      - "8084:8084"
+    networks:
+      - fs_net
+    volumes:
+       - content:/app/content
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  membership-api:
+    container_name: "fs-membership-api"
+    build: ../../../Images/CoreApis/MembershipApi
+    ports:
+      - "8083:8083"
+    networks:
+      - fs_net
+    volumes:
+       - content:/app/content
+    depends_on:
+      mysql:
+        condition: service_healthy
+  
+  access-api:
+    container_name: "fs-access-api"
+    build: ../../../Images/CoreApis/AccessApi
+    ports:
+      - "8082:8082"
+    networks:
+      - fs_net
+    volumes:
+       - content:/app/content
+    depends_on:
+      mysql:
+        condition: service_healthy   
+
+  content:
+    container_name: "fs-content"
+    tty: true
+    build: ../../../Images/NGINX/Content
+    ports:
+      - "3402:3402"
+    networks:
+      - fs_net
+    volumes:
+      - content:/content
+
+  nginx-proxy:
+    container_name: "proxy"
+    build: "../../../Images/NGINX/ProxyServer"
+    ports: 
+      - "80:80"
+    networks: 
+      - fs_net
+    depends_on: 
+      - "access-api"
+      - "membership-api"
+      - "giving-api"
+      - "attendance-api"
+
+networks:
+  fs_net:
+    ipam:
+      config:
+        - subnet: 172.40.0.0/24
+volumes: 
+  mysql_data_fs : {}
+  content: {}
