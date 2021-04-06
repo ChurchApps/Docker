@@ -161,6 +161,11 @@ services:
       - "8300:8300"
     networks:
       - fs_net
+    volumes:
+       - content:/app/content
+    depends_on:
+      mysql:
+        condition: service_healthy 
 
   b1-admin:
     container_name: "fs-b1-admin"
