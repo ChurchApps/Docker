@@ -246,7 +246,7 @@ services:
     networks:
       - fs_net
 
-    streaminglive-app:
+  streaminglive-app:
     container_name: "fs-streaminglive-app"
     tty: true
     image: livecs/streamingliveapp
@@ -305,8 +305,6 @@ services:
       - "8087:8087"
     networks:
       - fs_net
-    volumes:
-       - content:/app/content
     depends_on:
       mysql:
         condition: service_healthy
