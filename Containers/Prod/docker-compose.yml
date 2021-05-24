@@ -159,24 +159,6 @@ services:
     networks:
       - fs_net
 
-  chums-checkin:
-    container_name: "fs-chums-checkin"
-    tty: true
-    image: livecs/chumscheckin
-    environment: 
-      - ENVIRONMENT=${ENVIRONMENT}
-      - PORT=8080
-      - REACT_APP_ACCESS_API=${PROTOCOL}${DOMAIN}:8082
-      - REACT_APP_ATTENDANCE_API=${PROTOCOL}://${DOMAIN}:8085
-      - REACT_APP_GIVING_API=${PROTOCOL}://${DOMAIN}:8084
-      - REACT_APP_MEMBERSHIP_API=${PROTOCOL}://${DOMAIN}:8083
-      - REACT_APP_APP_URL=${PROTOCOL}://${DOMAIN}:3101
-      - REACT_APP_GOOGLE_ANALYTICS=${GOOGLE_ANALYTICS}
-    ports:
-      - "8080:8080"
-    networks:
-      - fs_net
-
 ############################################################END OF CHUMS-APP###############################################################
 
 
