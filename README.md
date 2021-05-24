@@ -63,4 +63,3 @@ After cloning this repo to a local directory, you can either use docker-compose 
 |||ChumsApp|3101|
 ||StreamingLive|StreamingLiveWeb|3200|
 ||StreamingLive|StreamingLiveApp|3201|
-||Chums|ChumsCheckin|8080|
