@@ -272,6 +272,7 @@ services:
       - DB_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - STORAGE_LOCATION=DB
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - FILE_STORE=${FILE_STORE}
     ports:
       - "8200:8200"
     networks:
