@@ -47,6 +47,8 @@ services:
       - "8085:8085"
     networks:
       - fs_net
+    volumes:
+      - content:/app/content
     depends_on:
       mysql:
         condition: service_healthy
@@ -69,6 +71,8 @@ services:
       - "8084:8084"
     networks:
       - fs_net
+    volumes:
+      - content:/app/content
     depends_on:
       mysql:
         condition: service_healthy
@@ -91,6 +95,8 @@ services:
       - "8083:8083"
     networks:
       - fs_net
+    volumes:
+      - content:/app/content
     depends_on:
       mysql:
         condition: service_healthy
@@ -113,6 +119,8 @@ services:
       - "8082:8082"
     networks:
       - fs_net
+    volumes:
+      - content:/app/content
     depends_on:
       mysql:
         condition: service_healthy   
@@ -268,6 +276,8 @@ services:
       - "8200:8200"
     networks:
       - fs_net
+    volumes:
+      - content:/app/content
     depends_on:
       mysql:
         condition: service_healthy 
@@ -291,6 +301,8 @@ services:
       - "8087:8087"
     networks:
       - fs_net
+    volumes:
+      - content:/app/content
     depends_on:
       mysql:
         condition: service_healthy
@@ -319,6 +331,8 @@ services:
       - "8300:8300"
     networks:
       - fs_net
+    volumes:
+      - content:/app/content
 
   b1-admin:
     container_name: "fs-b1-admin"
@@ -338,7 +352,20 @@ services:
 
 ###############################################################END OF B1###################################################################
 
+########################################################## content ########################################################################
 
+  content:
+    container_name: "fs-content"
+    tty: true
+    build: ../../../Images/NGINX/Content
+    ports:
+      - "3402:3402"
+    networks:
+      - fs_net
+    volumes:
+      - content:/content
+
+######################################################### End of content ##################################################################
 
 
 networks:
@@ -348,3 +375,4 @@ networks:
         - subnet: 172.40.0.0/24
 volumes: 
   mysql_data_fs : {}
+  content: {}
