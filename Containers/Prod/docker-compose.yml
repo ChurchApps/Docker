@@ -91,6 +91,7 @@ services:
       - DB_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
       - JWT_EXPIRATION=${JWT_EXPIRATION}
+      - FILE_STORE=disk
     ports:
       - "8083:8083"
     networks:
@@ -115,6 +116,10 @@ services:
       - DB_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
       - JWT_EXPIRATION=${JWT_EXPIRATION}
+      - MAIL_SYSTEM=${MAIL_SYSTEM}
+      - SUPPORT_EMAIL=${SUPPORT_EMAIL}
+      - EMAIL_ON_REGISTRATION=${EMAIL_ON_REGISTRATION}
+      - FRONTEND_ACCOUNTS_APP_HOST=${PROTOCOL}://${DOMAIN}:${ACCOUNTS_APP_PORT}
     ports:
       - "8082:8082"
     networks:
@@ -272,6 +277,7 @@ services:
       - DB_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - STORAGE_LOCATION=DB
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - FILE_STORE=DB
     ports:
       - "8200:8200"
     networks:
