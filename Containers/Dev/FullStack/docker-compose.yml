@@ -167,10 +167,10 @@ services:
       mysql:
         condition: service_healthy 
 
-  b1-admin:
-    container_name: "fs-b1-admin"
+  b1-app:
+    container_name: "fs-b1-app"
     tty: true
-    build: ../../../Images/B1/B1Admin
+    build: ../../../Images/B1/B1App
     ports:
       - "3301:3301"
     networks:

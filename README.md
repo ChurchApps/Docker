@@ -58,7 +58,7 @@ After cloning this repo to a local directory, you can either use docker-compose 
 |Web|ChurchApps|ChurchAppsWeb|3400|
 |||AccountsApp|3401|
 |||Content|3402|
-||B1|B1Admin|3301|
+||B1|B1App|3301|
 ||Chums|ChumsWeb|3100|
 |||ChumsApp|3101|
 ||StreamingLive|StreamingLiveWeb|3200|
