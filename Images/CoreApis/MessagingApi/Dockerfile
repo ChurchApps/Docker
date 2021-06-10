@@ -5,7 +5,7 @@ RUN apk update && \
 
 WORKDIR /app
 
-RUN git clone https://github.com/LiveChurchSolutions/MessagingApi .
+RUN git clone https://github.com/LiveChurchSolutions/MessagingApi.git .
 
 COPY sample.env .env
 

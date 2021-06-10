@@ -5,7 +5,7 @@ RUN apk update && \
 
 WORKDIR /app
 
-RUN git clone https://github.com/LiveChurchSolutions/GivingApi .
+RUN git clone https://github.com/LiveChurchSolutions/GivingApi.git .
 
 COPY sample.env .env
 

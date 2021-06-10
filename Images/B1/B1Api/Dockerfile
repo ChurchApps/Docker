@@ -5,7 +5,7 @@ RUN apk update && \
 
 WORKDIR /app
 
-RUN git clone https://github.com/LiveChurchSolutions/B1Api .
+RUN git clone https://github.com/LiveChurchSolutions/B1Api.git .
 
 COPY sample.env .env
 
