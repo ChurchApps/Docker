@@ -5,7 +5,7 @@ RUN apk update && \
 
 WORKDIR /app
 
-RUN git clone https://github.com/LiveChurchSolutions/ChumsApp .
+RUN git clone https://github.com/LiveChurchSolutions/ChumsApp.git .
 
 COPY sample.env .env
 

@@ -5,7 +5,7 @@ RUN apk update && \
 
 WORKDIR /app
 
-RUN git clone https://github.com/LiveChurchSolutions/MembershipApi .
+RUN git clone https://github.com/LiveChurchSolutions/MembershipApi.git .
 
 COPY sample.env .env
 

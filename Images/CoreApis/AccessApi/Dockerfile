@@ -5,7 +5,7 @@ RUN apk update && \
 
 WORKDIR /app
 
-RUN git clone https://github.com/LiveChurchSolutions/AccessApi .
+RUN git clone https://github.com/LiveChurchSolutions/AccessApi.git .
 
 COPY sample.env .env
 

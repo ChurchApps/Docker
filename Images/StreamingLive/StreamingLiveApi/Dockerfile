@@ -5,7 +5,7 @@ RUN apk update && \
 
 WORKDIR /app
 
-RUN git clone https://github.com/LiveChurchSolutions/StreamingLiveApi .
+RUN git clone https://github.com/LiveChurchSolutions/StreamingLiveApi.git .
 
 COPY sample.env .env
 

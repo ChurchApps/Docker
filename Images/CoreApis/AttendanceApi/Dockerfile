@@ -5,7 +5,7 @@ RUN apk update && \
 
 WORKDIR /app
 
-RUN git clone https://github.com/LiveChurchSolutions/AttendanceApi .
+RUN git clone https://github.com/LiveChurchSolutions/AttendanceApi.git .
 
 COPY sample.env .env
 
