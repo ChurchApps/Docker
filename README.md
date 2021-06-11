@@ -39,9 +39,21 @@ After cloning this repo to a local directory, you can either use docker-compose 
 * Build and start the dockers the first time: `docker-compose up -d`
 * Stop the docker container: `docker-compose stop`
 * Restart the docker container: `docker-compose start`
-* Reset everything except MySql: `docker-compose down` followed by `docker-compose up -d`
-* Reset everything including MySql: `docker-compose down -v` followed by `docker-compose up -d`
-* Completely reinstall everything: `docker-compose down --rmi local` followed by `docker-compose up -d`
+* Reset everything except MySql: `docker-compose down` followed by `docker-compose build --no-cache` and `docker-compose up -d`
+* Reset everything including MySql: `docker-compose down -v` followed by `docker-compose build --no-cache` and `docker-compose up -d`
+* Completely reinstall everything: `docker-compose down --rmi local` followed by `docker-compose build --no-cache` and  `docker-compose up -d`
+
+### High Memory Usage
+Running the full stack can require a lot of RAM.  If that is an issue, you can set a max memory limit for WSL2 in Windows by creating a `C:\Users\[yourprofile]\.wslconfig` file and adding these two lines (using any memory limit you choose):
+
+```
+[wsl2]
+memory=6GB
+```
+
+Reboot after making the changes.  
+Note: If you restrict the memory usage too much, the containers may be slow to start an time out on initial started.  Simply starting the failed ones individually should resolve this though.
+
 
 ## Ports Used
 |Type|Category|Component|Port|
