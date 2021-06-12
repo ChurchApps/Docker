@@ -2,7 +2,7 @@
 Docker compose images for LCS projects
 
 ## Dev Environment Setup
-1. Browse to the /Containers/Dev folder and then to the project you wish to work on (Chums, StreamingLive, etc)
+1. Browse to the /Containers/Dev folder and then to the project you wish to work on (CoreApis, FullStack, etc)
 2. Run `docker-compose up -d` to create the environment.  This will take about 5 minutes the first time.
 3. Refer to the list of ports below and open the main project in your browser (http://localhost:3100 - ChumsWeb)
 
@@ -69,9 +69,9 @@ Note: If you restrict the memory usage too much, the containers may be slow to s
 |||StreamingLiveChat|8201|
 |Web|ChurchApps|ChurchAppsWeb|3400|
 |||AccountsApp|3401|
-|||Content|3402|
 ||B1|B1App|3301|
 ||Chums|ChumsWeb|3100|
 |||ChumsApp|3101|
 ||StreamingLive|StreamingLiveWeb|3200|
 ||StreamingLive|StreamingLiveApp|3201|
+|Content|||3402|
