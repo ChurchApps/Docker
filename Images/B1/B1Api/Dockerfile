@@ -1,7 +1,7 @@
 FROM node:12-alpine
 
 RUN apk update && \
-    apk add git
+  apk add git
 
 WORKDIR /app
 
