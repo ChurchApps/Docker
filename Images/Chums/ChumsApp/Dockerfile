@@ -1,7 +1,7 @@
 FROM node:12-alpine
 
 RUN apk update && \
-    apk add git
+  apk add git
 
 WORKDIR /app
 
@@ -12,8 +12,6 @@ COPY sample.env .env
 RUN git submodule init && git submodule update
 
 RUN npm set unsafe-perm true
-
-RUN chmod +x .husky/pre-commit
 
 RUN git config --local core.fileMode false
 
