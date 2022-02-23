@@ -15,6 +15,8 @@ RUN git submodule init && git submodule update
 
 RUN npm install
 
+RUN ["chmod", "+x", "/entrypoint.sh"] 
+
 ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 8300
