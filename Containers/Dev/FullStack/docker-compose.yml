@@ -1,6 +1,6 @@
 version: "2.1"
 services:
- 
+
   mysql:
     container_name: "fs-mysql"
     image: mysql:5.6
@@ -11,11 +11,21 @@ services:
     networks:
       - fs_net
     volumes:
-       - ./init.sql:/data/application/init.sql
-       - mysql_data_fs:/var/lib/mysql
+      - ./init.sql:/data/application/init.sql
+      - mysql_data_fs:/var/lib/mysql
     command: --init-file /data/application/init.sql
     healthcheck:
-      test: ["CMD", 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '-p$$MYSQL_ROOT_PASSWORD' ]
+      test:
+        [
+          "CMD",
+          'mysqladmin',
+          'ping',
+          '-h',
+          'localhost',
+          '-u',
+          'root',
+          '-p$$MYSQL_ROOT_PASSWORD'
+        ]
       interval: 30s
       timeout: 20s
       retries: 10
@@ -42,7 +52,7 @@ services:
     networks:
       - fs_net
     volumes:
-       - content:/app/content
+      - content:/app/content
     depends_on:
       mysql:
         condition: service_healthy
@@ -55,11 +65,11 @@ services:
     networks:
       - fs_net
     volumes:
-       - content:/app/content
+      - content:/app/content
     depends_on:
       mysql:
         condition: service_healthy
-  
+
   messaging-api:
     container_name: "fs-messaging-api"
     build: ../../../Images/CoreApis/MessagingApi
@@ -69,7 +79,7 @@ services:
     networks:
       - fs_net
     volumes:
-       - content:/app/content
+      - content:/app/content
     depends_on:
       mysql:
         condition: service_healthy
@@ -82,10 +92,23 @@ services:
     networks:
       - fs_net
     volumes:
-       - content:/app/content
+      - content:/app/content
     depends_on:
       mysql:
-        condition: service_healthy   
+        condition: service_healthy
+
+  reporting-api:
+    container_name: "fs-reporting-api"
+    build: ../../../Images/CoreApis/ReportingApi
+    ports:
+      - "8089:8089"
+    networks:
+      - fs_net
+    volumes:
+      - content:/app/content
+    depends_on:
+      mysql:
+        condition: service_healthy
 
   chums-app:
     container_name: "fs-chums-app"
@@ -149,11 +172,11 @@ services:
     networks:
       - fs_net
     volumes:
-       - content:/app/content
+      - content:/app/content
     depends_on:
       mysql:
-        condition: service_healthy 
- 
+        condition: service_healthy
+
   b1-api:
     container_name: "fs-b1-api"
     build: ../../../Images/B1/B1Api
@@ -162,10 +185,10 @@ services:
     networks:
       - fs_net
     volumes:
-       - content:/app/content
+      - content:/app/content
     depends_on:
       mysql:
-        condition: service_healthy 
+        condition: service_healthy
 
   b1-app:
     container_name: "fs-b1-app"
@@ -192,6 +215,6 @@ networks:
     ipam:
       config:
         - subnet: 172.40.0.0/24
-volumes: 
-  mysql_data_fs : {}
+volumes:
+  mysql_data_fs: {}
   content: {}
