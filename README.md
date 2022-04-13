@@ -14,6 +14,10 @@ Docker compose images for LCS projects
 5. To view console output, in the original VSCode instance, right click on the app and select "View Logs"
 
 
+
+[![Api Dev Setup](https://img.youtube.com/vi/M81I6gmKqdI/0.jpg)](https://www.youtube.com/watch?v=M81I6gmKqdI)
+
+
 ## Prod Environment Setup
 1. Clone the project and go to the /Containers/Prod folder
 2. Copy sample.env to .env and edit the variables
