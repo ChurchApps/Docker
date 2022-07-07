@@ -44,6 +44,19 @@ services:
       mysql:
         condition: service_healthy
 
+  doing-api:
+    container_name: "fs-doing-api"
+    build: ../../../Images/CoreApis/DoingApi
+    ports:
+      - "8088:8088"
+    networks:
+      - fs_net
+    volumes:
+      - content:/app/content
+    depends_on:
+      mysql:
+        condition: service_healthy
+
   giving-api:
     container_name: "fs-giving-api"
     build: ../../../Images/CoreApis/GivingApi
