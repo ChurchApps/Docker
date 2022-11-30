@@ -83,19 +83,6 @@ services:
       mysql:
         condition: service_healthy
 
-  access-api:
-    container_name: "fs-access-api"
-    build: ../../../Images/CoreApis/AccessApi
-    ports:
-      - "8082:8082"
-    networks:
-      - fs_net
-    volumes:
-      - content:/app/content
-    depends_on:
-      mysql:
-        condition: service_healthy
-
   reporting-api:
     container_name: "fs-reporting-api"
     build: ../../../Images/CoreApis/ReportingApi

@@ -62,8 +62,7 @@ Note: If you restrict the memory usage too much, the containers may be slow to s
 ## Ports Used
 |Type|Category|Component|Port|
 |---|---|---|---|
-|Api|Core|AccessApi|8082|
-|||MembershipApi|8083|
+|Api|Core|MembershipApi|8083|
 |||GivingApi|8084|
 |||AttendanceApi|8085|
 |||MessagingApi (REST)|8086|

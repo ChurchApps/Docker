@@ -1,14 +1,14 @@
 version: "2.1"
 services:
 
-#used to create a docker of mysql , if you prefer to have an external mysql database, you can remove this block 
-############################################################START Mysql Container###############################################################
+  #used to create a docker of mysql , if you prefer to have an external mysql database, you can remove this block 
+  ############################################################START Mysql Container###############################################################
 
   mysql:
     container_name: "fs-mysql"
     image: mysql:5.6
     environment:
-        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     ports:
       - "3306:3306"
     networks:
@@ -18,21 +18,31 @@ services:
       - mysql_data_fs:/var/lib/mysql
     command: --init-file /data/application/init.sql
     healthcheck:
-      test: ["CMD", 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '-p$$MYSQL_ROOT_PASSWORD' ]
+      test:
+        [
+          "CMD",
+          'mysqladmin',
+          'ping',
+          '-h',
+          'localhost',
+          '-u',
+          'root',
+          '-p$$MYSQL_ROOT_PASSWORD'
+        ]
       interval: 30s
       timeout: 20s
       retries: 10
-############################################################END MYSQL Container###############################################################
+  ############################################################END MYSQL Container###############################################################
 
 
 
 
 
-############################################################START OF Core APIs###############################################################
+  ############################################################START OF Core APIs###############################################################
   attendance-api:
     container_name: "fs-attendance-api"
     image: livecs/attendanceapi
-    environment: 
+    environment:
       - ENVIRONMENT=${ENVIRONMENT}
       - API_ENV=${ENVIRONMENT}
       - APP_NAME=AttendanceApi
@@ -56,7 +66,7 @@ services:
   giving-api:
     container_name: "fs-giving-api"
     image: livecs/givingapi
-    environment: 
+    environment:
       - ENVIRONMENT=${ENVIRONMENT}
       - API_ENV=${ENVIRONMENT}
       - APP_NAME=GivingApi
@@ -80,7 +90,7 @@ services:
   membership-api:
     container_name: "fs-membership-api"
     image: livecs/membershipapi
-    environment: 
+    environment:
       - ENVIRONMENT=${ENVIRONMENT}
       - API_ENV=${ENVIRONMENT}
       - APP_NAME=MembershipApi
@@ -102,45 +112,18 @@ services:
       mysql:
         condition: service_healthy
 
-  access-api:
-    container_name: "fs-access-api"
-    image: livecs/accessapi
-    environment: 
-      - ENVIRONMENT=${ENVIRONMENT}
-      - API_ENV=${ENVIRONMENT}
-      - APP_NAME=AccessApi
-      - SERVER_PORT=8082
-      - DB_HOST=${MYSQL_HOSTNAME}
-      - DB_DATABASE=access
-      - DB_USER=${MYSQL_USERNAME}
-      - DB_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
-      - JWT_EXPIRATION=${JWT_EXPIRATION}
-      - MAIL_SYSTEM=${MAIL_SYSTEM}
-      - SUPPORT_EMAIL=${SUPPORT_EMAIL}
-      - EMAIL_ON_REGISTRATION=${EMAIL_ON_REGISTRATION}
-      - FRONTEND_ACCOUNTS_APP_HOST=${PROTOCOL}://${DOMAIN}:${ACCOUNTS_APP_PORT}
-    ports:
-      - "8082:8082"
-    networks:
-      - fs_net
-    volumes:
-      - content:/app/content
-    depends_on:
-      mysql:
-        condition: service_healthy   
-############################################################END OF Core APIs#################################################################
+  ############################################################END OF Core APIs#################################################################
 
 
 
 
 
-############################################################START OF CHUMS-APP###############################################################
+  ############################################################START OF CHUMS-APP###############################################################
   chums-app:
     container_name: "fs-chums-app"
     tty: true
     image: livecs/chumsapp
-    environment: 
+    environment:
       - PORT=3101
       - REACT_APP_ACCESS_API=${PROTOCOL}://${DOMAIN}:${ACCESS_API_PORT}
       - REACT_APP_ATTENDANCE_API=${PROTOCOL}://${DOMAIN}:${ATTENDANCE_API_PORT}
@@ -159,7 +142,7 @@ services:
     container_name: "fs-chums-web"
     tty: true
     image: livecs/chumsweb
-    environment: 
+    environment:
       - PORT=3100
       - REACT_APP_ACCESS_API=${PROTOCOL}://${DOMAIN}:${ACCESS_API_PORT}
       - REACT_APP_ATTENDANCE_API=${PROTOCOL}://${DOMAIN}:${ATTENDANCE_API_PORT}
@@ -174,19 +157,19 @@ services:
     networks:
       - fs_net
 
-############################################################END OF CHUMS-APP###############################################################
+  ############################################################END OF CHUMS-APP###############################################################
 
 
 
 
 
-############################################################Start OF ChurchApps#############################################################
+  ############################################################Start OF ChurchApps#############################################################
 
   accounts-app:
     container_name: "fs-accounts-app"
     tty: true
     image: livecs/accountsapp
-    environment: 
+    environment:
       - PORT=3401
       - REACT_APP_ACCESS_API=${PROTOCOL}://${DOMAIN}:${ACCESS_API_PORT}
       - REACT_APP_GIVING_API=${PROTOCOL}://${DOMAIN}:${GIVING_API_PORT}
@@ -207,7 +190,7 @@ services:
     container_name: "fs-church-apps-web"
     tty: true
     image: livecs/churchappsweb
-    environment: 
+    environment:
       - PORT=3400
       - REACT_APP_ACCESS_API=${PROTOCOL}://${DOMAIN}:${ACCESS_API_PORT}
       - REACT_APP_ACCOUNTS_APP_URL=${PROTOCOL}://${DOMAIN}:${ACCOUNTS_APP_PORT}
@@ -217,20 +200,20 @@ services:
     networks:
       - fs_net
 
-############################################################END OF ChurchApps#############################################################
+  ############################################################END OF ChurchApps#############################################################
 
 
 
 
 
 
-############################################################Start OF StreamingLive#############################################################
+  ############################################################Start OF StreamingLive#############################################################
 
   streaminglive-web:
     container_name: "fs-streaminglive-web"
     tty: true
     image: livecs/streamingliveweb
-    environment: 
+    environment:
       - PORT=3200
       - REACT_APP_ACCESS_API=${PROTOCOL}://${DOMAIN}:${ACCESS_API_PORT}
       - REACT_APP_STREAMINGLIVE_API=${PROTOCOL}://${DOMAIN}:${STREAMINGLIVE_API_PORT}
@@ -246,7 +229,7 @@ services:
     container_name: "fs-streaminglive-app"
     tty: true
     image: livecs/streamingliveapp
-    environment: 
+    environment:
       - PORT=3201
       - REACT_APP_ACCOUNTS_APP_URL=${PROTOCOL}://${DOMAIN}:${ACCOUNTS_APP_PORT}
       - REACT_APP_ACCESS_API=${PROTOCOL}://${DOMAIN}:${ACCESS_API_PORT}
@@ -266,7 +249,7 @@ services:
   streaminglive-api:
     container_name: "fs-streaminglive-api"
     image: livecs/streamingliveapi
-    environment: 
+    environment:
       - ENVIRONMENT=${ENVIRONMENT}
       - NODE_ENV=${ENVIRONMENT}
       - APP_NAME=StreamingLive
@@ -286,12 +269,12 @@ services:
       - content:/app/content
     depends_on:
       mysql:
-        condition: service_healthy 
+        condition: service_healthy
 
   messaging-api:
     container_name: "fs-messaging-api"
     image: livecs/streamingliveapi
-    environment: 
+    environment:
       - ENVIRONMENT=${ENVIRONMENT}
       - NODE_ENV=${ENVIRONMENT}
       - APP_NAME=MessagingApi
@@ -313,26 +296,26 @@ services:
       mysql:
         condition: service_healthy
 
-############################################################END OF StreamingLive#############################################################
+  ############################################################END OF StreamingLive#############################################################
 
 
 
 
 
-###############################################################Start OF B1###################################################################
+  ###############################################################Start OF B1###################################################################
   b1-api:
     container_name: "fs-b1-api"
     image: livecs/b1api
-    environment: 
-      - ENVIRONMENT=$ENVIRONMENT          
+    environment:
+      - ENVIRONMENT=$ENVIRONMENT
       - API_ENV=$ENVIRONMENT
       - APP_NAME=B1Api
       - SERVER_PORT=8300
       - DB_HOST=${MYSQL_HOSTNAME}
       - DB_DATABASE=b1
       - DB_USER=${MYSQL_USERNAME}
-      - DB_PASSWORD=${MYSQL_ROOT_PASSWORD}   
-      - JWT_SECRET_KEY=${JWT_SECRET_KEY}  
+      - DB_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
     ports:
       - "8300:8300"
     networks:
@@ -344,7 +327,7 @@ services:
     container_name: "fs-b1-app"
     tty: true
     image: livecs/b1app
-    environment: 
+    environment:
       - PORT=3301
       - REACT_APP_NAME=B1App
       - REACT_APP_ACCESS_API=${PROTOCOL}://${DOMAIN}:${ACCESS_API_PORT}
@@ -356,9 +339,9 @@ services:
     networks:
       - fs_net
 
-###############################################################END OF B1###################################################################
+  ###############################################################END OF B1###################################################################
 
-########################################################## content ########################################################################
+  ########################################################## content ########################################################################
 
   content:
     container_name: "fs-content"
@@ -379,6 +362,6 @@ networks:
     ipam:
       config:
         - subnet: 172.40.0.0/24
-volumes: 
-  mysql_data_fs : {}
+volumes:
+  mysql_data_fs: {}
   content: {}
