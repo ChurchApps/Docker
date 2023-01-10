@@ -115,7 +115,6 @@ services:
     networks:
       - fs_net
     depends_on:
-      - "access-api"
       - "membership-api"
       - "giving-api"
       - "attendance-api"
