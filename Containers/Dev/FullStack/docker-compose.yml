@@ -1,6 +1,5 @@
 version: "2.1"
 services:
-
   mysql:
     container_name: "fs-mysql"
     image: mysql:5.6
@@ -18,13 +17,13 @@ services:
       test:
         [
           "CMD",
-          'mysqladmin',
-          'ping',
-          '-h',
-          'localhost',
-          '-u',
-          'root',
-          '-p$$MYSQL_ROOT_PASSWORD'
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-p$$MYSQL_ROOT_PASSWORD",
         ]
       interval: 30s
       timeout: 20s
@@ -155,41 +154,6 @@ services:
     networks:
       - fs_net
 
-  streaminglive-app:
-    container_name: "fs-streaminglive-app"
-    tty: true
-    build: ../../../Images/StreamingLive/StreamingLiveApp
-    ports:
-      - "3201:3201"
-    networks:
-      - fs_net
-
-  streaminglive-api:
-    container_name: "fs-streaminglive-api"
-    build: ../../../Images/StreamingLive/StreamingLiveApi
-    ports:
-      - "8200:8200"
-    networks:
-      - fs_net
-    volumes:
-      - content:/app/content
-    depends_on:
-      mysql:
-        condition: service_healthy
-
-  b1-api:
-    container_name: "fs-b1-api"
-    build: ../../../Images/B1/B1Api
-    ports:
-      - "8300:8300"
-    networks:
-      - fs_net
-    volumes:
-      - content:/app/content
-    depends_on:
-      mysql:
-        condition: service_healthy
-
   b1-app:
     container_name: "fs-b1-app"
     tty: true
@@ -216,5 +180,11 @@ networks:
       config:
         - subnet: 172.40.0.0/24
 volumes:
-  mysql_data_fs: {}
-  content: {}
+  mysql_data_fs:
+    {
+      ,
+    }
+  content:
+    {
+      ,
+    }
