@@ -5,7 +5,7 @@ RUN apk update && \
 
 WORKDIR /app
 
-RUN git clone https://github.com/LiveChurchSolutions/StreamingLiveWeb.git .
+RUN git clone https://github.com/LiveChurchSolutions/LessonsApp.git .
 
 COPY sample.env .env
 
@@ -19,4 +19,4 @@ RUN npm install
 
 CMD npm start
 
-EXPOSE 3200
+EXPOSE 3501

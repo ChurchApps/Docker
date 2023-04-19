@@ -23,7 +23,7 @@ services:
           "localhost",
           "-u",
           "root",
-          "-p$$MYSQL_ROOT_PASSWORD",
+          "-p$$MYSQL_ROOT_PASSWORD"
         ]
       interval: 30s
       timeout: 20s
@@ -82,12 +82,11 @@ services:
       mysql:
         condition: service_healthy
 
-  messaging-api:
-    container_name: "fs-messaging-api"
-    build: ../../../Images/CoreApis/MessagingApi
+  reporting-api:
+    container_name: "fs-reporting-api"
+    build: ../../../Images/CoreApis/ReportingApi
     ports:
-      - "8086:8086"
-      - "8087:8087"
+      - "8089:8089"
     networks:
       - fs_net
     volumes:
@@ -96,11 +95,11 @@ services:
       mysql:
         condition: service_healthy
 
-  reporting-api:
-    container_name: "fs-reporting-api"
-    build: ../../../Images/CoreApis/ReportingApi
+  content-api:
+    container_name: "fs-content-api"
+    build: ../../../Images/CoreApis/ContentApi
     ports:
-      - "8089:8089"
+      - "8082:8082"
     networks:
       - fs_net
     volumes:
@@ -118,48 +117,21 @@ services:
     networks:
       - fs_net
 
-  chums-web:
-    container_name: "fs-chums-web"
-    tty: true
-    build: ../../../Images/Chums/ChumsWeb
-    ports:
-      - "3100:3100"
-    networks:
-      - fs_net
-
-  churchapps-web:
-    container_name: "fs-churchapps-web"
-    tty: true
-    build: ../../../Images/ChurchApps/ChurchAppsWeb
-    ports:
-      - "3400:3400"
-    networks:
-      - fs_net
-
-  accounts-app:
-    container_name: "fs-accounts-app"
-    tty: true
-    build: ../../../Images/ChurchApps/AccountsApp
-    ports:
-      - "3401:3401"
-    networks:
-      - fs_net
-
-  streaminglive-web:
-    container_name: "fs-streaminglive-web"
-    tty: true
-    build: ../../../Images/StreamingLive/StreamingLiveWeb
-    ports:
-      - "3200:3200"
-    networks:
-      - fs_net
-
   b1-app:
     container_name: "fs-b1-app"
     tty: true
     build: ../../../Images/B1/B1App
     ports:
       - "3301:3301"
+    networks:
+      - fs_net
+
+  lessons-app:
+    container_name: "fs-lessons-app"
+    tty: true
+    build: ../../../Images/Lessons/LessonsApp
+    ports:
+      - "3501:3501"
     networks:
       - fs_net
 
@@ -182,9 +154,9 @@ networks:
 volumes:
   mysql_data_fs:
     {
-      ,
+
     }
   content:
     {
-      ,
+
     }

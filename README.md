@@ -6,7 +6,7 @@ Docker compose images for LCS projects
 
 1. Browse to the /Containers/Dev folder and then to the project you wish to work on (CoreApis, FullStack, etc)
 2. Run `docker-compose up -d` to create the environment. This will take about 5 minutes the first time.
-3. Refer to the list of ports below and open the main project in your browser (http://localhost:3100 - ChumsWeb)
+3. Refer to the list of ports below and open the main project in your browser (http://localhost:3101 - ChumsApp)
 
 ### Connecting VSCode
 
@@ -62,17 +62,16 @@ Note: If you restrict the memory usage too much, the containers may be slow to s
 
 ## Ports Used
 
-| Type    | Category      | Component             | Port |
-| ------- | ------------- | --------------------- | ---- |
-| Api     | Core          | MembershipApi         | 8083 |
-|         |               | GivingApi             | 8084 |
-|         |               | AttendanceApi         | 8085 |
-|         |               | MessagingApi (REST)   | 8086 |
-|         |               | MessagingApi (Socket) | 8087 |
-| Web     | ChurchApps    | ChurchAppsWeb         | 3400 |
-|         |               | AccountsApp           | 3401 |
-|         | B1            | B1App                 | 3301 |
-|         | Chums         | ChumsWeb              | 3100 |
-|         |               | ChumsApp              | 3101 |
-|         | StreamingLive | StreamingLiveWeb      | 3200 |
-| Content |               |                       | 3402 |
+| Type    | Category | Component             | Port |
+| ------- | -------- | --------------------- | ---- |
+| Api     | Core     | ContentApi            | 8082 |
+|         |          | MembershipApi         | 8083 |
+|         |          | GivingApi             | 8084 |
+|         |          | AttendanceApi         | 8085 |
+|         |          | MessagingApi (REST)   | 8086 |
+|         |          | MessagingApi (Socket) | 8087 |
+|         |          | ReportingApi          | 8089 |
+| Web     | B1       | B1App                 | 3301 |
+|         |          | ChumsApp              | 3101 |
+| Web     | Lessons  | LessonsApp            | 3501 |
+| Content |          |                       | 3402 |
