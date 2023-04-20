@@ -1,0 +1,8 @@
+version: "2.1"
+services:
+  church-apps-web:
+    container_name: "fs-church-apps-web"
+    tty: true
+    build: ../../../../Images/ChurchApps/ChurchAppsWeb
+    ports:
+      - "3400:3400"

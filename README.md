@@ -1,10 +1,12 @@
 # Docker
 
-Docker compose images for LCS projects
+Docker compose images for LCS projects.
+
+The CoreApis container is needed for all projects. Start it first. Then start the project you wish to work on.
 
 ## Dev Environment Setup
 
-1. Browse to the /Containers/Dev folder and then to the project you wish to work on (CoreApis, FullStack, etc)
+1. Browse to the /Containers/Dev folder and then to the project you wish to work on (CoreApis, Chums, etc)
 2. Run `docker-compose up -d` to create the environment. This will take about 5 minutes the first time.
 3. Refer to the list of ports below and open the main project in your browser (http://localhost:3101 - ChumsApp)
 
@@ -62,16 +64,18 @@ Note: If you restrict the memory usage too much, the containers may be slow to s
 
 ## Ports Used
 
-| Type    | Category | Component             | Port |
-| ------- | -------- | --------------------- | ---- |
-| Api     | Core     | ContentApi            | 8082 |
-|         |          | MembershipApi         | 8083 |
-|         |          | GivingApi             | 8084 |
-|         |          | AttendanceApi         | 8085 |
-|         |          | MessagingApi (REST)   | 8086 |
-|         |          | MessagingApi (Socket) | 8087 |
-|         |          | ReportingApi          | 8089 |
-| Web     | B1       | B1App                 | 3301 |
-|         |          | ChumsApp              | 3101 |
-| Web     | Lessons  | LessonsApp            | 3501 |
-| Content |          |                       | 3402 |
+| Type     | Category | Component             | Port |
+| -------- | -------- | --------------------- | ---- |
+| CoreApi  | Core     | ContentApi            | 8082 |
+|          |          | MembershipApi         | 8083 |
+|          |          | GivingApi             | 8084 |
+|          |          | AttendanceApi         | 8085 |
+|          |          | MessagingApi (REST)   | 8086 |
+|          |          | MessagingApi (Socket) | 8087 |
+|          |          | ReportingApi          | 8089 |
+| Projects | B1       | B1App                 | 3301 |
+|          | Chums    | ChumsApp              | 3101 |
+|          | Lessons  | LessonsApi            | 8090 |
+|          |          | LessonsApp            | 3501 |
+|          | Brochure | ChurchAppsWeb         | 3400 |
+| Content  |          |                       | 3402 |

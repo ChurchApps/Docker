@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM node:16-alpine
 
 RUN apk update && \
   apk add git
@@ -15,8 +15,8 @@ RUN npm set unsafe-perm true
 
 RUN git config --local core.fileMode false
 
-RUN npm install
+RUN npm install --legacy-peer-deps
 
-CMD npm start
+CMD npm run dev
 
 EXPOSE 3501

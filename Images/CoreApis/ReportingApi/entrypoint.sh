@@ -6,7 +6,7 @@ if [ ! -e /$CONTAINER_ALREADY_STARTED ]; then
     touch /$CONTAINER_ALREADY_STARTED
     echo "-- First container startup --"
     # place your script that you only want to run on first startup
-    npm run dev
+    npm run initdb && npm run dev
 else
     echo "-- Not first container startup --"
     # script that should run the rest of the times (instances where you 

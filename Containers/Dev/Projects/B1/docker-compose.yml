@@ -1,0 +1,8 @@
+version: "2.1"
+services:
+  b1-app:
+    container_name: "fs-b1-app"
+    tty: true
+    build: ../../../../Images/B1/B1App
+    ports:
+      - "3301:3301"

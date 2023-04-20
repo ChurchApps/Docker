@@ -1,0 +1,22 @@
+version: "2.1"
+services:
+  lessons-api:
+    container_name: "fs-lessons-api"
+    build: ../../../../Images/Lessons/LessonsApi
+    ports:
+      - "8090:8090"
+    networks:
+      - fs_lessons_net
+  lessons-app:
+    container_name: "fs-lessons-app"
+    tty: true
+    build: ../../../../Images/Lessons/LessonsApp
+    ports:
+      - "3501:3501"
+    networks:
+      - fs_lessons_net
+networks:
+  fs_lessons_net:
+    ipam:
+      config:
+        - subnet: 172.41.0.0/24

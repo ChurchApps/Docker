@@ -1,0 +1,8 @@
+version: "2.1"
+services:
+  chums-app:
+    container_name: "fs-chums-app"
+    tty: true
+    build: ../../../../Images/Chums/ChumsApp
+    ports:
+      - "3101:3101"
