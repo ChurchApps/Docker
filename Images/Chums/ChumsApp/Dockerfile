@@ -5,11 +5,9 @@ RUN apk update && \
 
 WORKDIR /app
 
-RUN git clone https://github.com/LiveChurchSolutions/ChumsApp.git .
+RUN git clone https://github.com/ChurchApps/ChumsApp.git .
 
 COPY sample.env .env
-
-RUN git submodule init && git submodule update
 
 RUN npm set unsafe-perm true
 

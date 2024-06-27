@@ -5,13 +5,11 @@ RUN apk update && \
 
 WORKDIR /app
 
-RUN git clone https://github.com/LiveChurchSolutions/ContentApi.git .
+RUN git clone https://github.com/ChurchApps/ContentApi.git .
 
 COPY sample.env .env
 
 COPY entrypoint.sh /
-
-RUN git submodule init && git submodule update
 
 RUN npm install
 
